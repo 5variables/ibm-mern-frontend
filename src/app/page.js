@@ -17,11 +17,11 @@ export default function Home() {
 
     if (!token) {
       // redirect to RegisterPage if token doesn't exist
-      router.push('/register');
+      router.push('/register/new-user');
     } else {
       // verify user with token
       try {
-        const response = await axios.post('http://localhost:3001/verify-token', {
+        const response = await axios.post('http://localhost:3001/register/verify-token', {
           token: token,
         });
 
