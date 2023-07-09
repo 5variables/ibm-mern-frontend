@@ -3,25 +3,20 @@ import axios from 'axios';
 import { useRouter } from 'next/navigation';
 
 
-const RegisterPage = () => {
+const LoginPage = () => {
     const router = useRouter();
 
-    const [firstName, setFirstName] = useState('');
-    const [lastName, setLastName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const [confirmPassword, setConfirmPassword] = useState('');
 
     const handleFormSubmit = async (e) => {
         e.preventDefault();
 
         // check if all fields are completed
-        if (firstName && lastName && email && password && confirmPassword) {
+        if (email && password) {
             
             try {
-                const response = await axios.post('http://localhost:3001/register', {
-                    firstName: firstName,
-                    lastName: lastName,
+                const response = await axios.post('http://localhost:3001/register/login', {
                     mail: email,
                     password: password,
                 });
@@ -34,11 +29,8 @@ const RegisterPage = () => {
             }
 
             
-            setFirstName('');
-            setLastName('');
             setEmail('');
             setPassword('');
-            setConfirmPassword('');
         } else {
            
             console.log('Please fill in all fields.');
@@ -47,30 +39,10 @@ const RegisterPage = () => {
 
     return(
         <div>
-            <h1>Create your account</h1>
+            <h1>Welcome back, login in your account</h1>
             <div style={{ display: 'flex' }}>
                 <div style={{ flex: 3 }}>
                     <form onSubmit={handleFormSubmit}>
-                    <div>
-                        <label>
-                        First Name:
-                        <input
-                            type="text"
-                            value={firstName}
-                            onChange={(e) => setFirstName(e.target.value)}
-                        />
-                        </label>
-                    </div>
-                    <div>
-                        <label>
-                        Last Name:
-                        <input
-                            type="text"
-                            value={lastName}
-                            onChange={(e) => setLastName(e.target.value)}
-                        />
-                        </label>
-                    </div>
                     <div>
                         <label>
                         Email:
@@ -92,22 +64,12 @@ const RegisterPage = () => {
                         </label>
                     </div>
                     <div>
-                        <label>
-                        Confirm Password:
-                        <input
-                            type="password"
-                            value={confirmPassword}
-                            onChange={(e) => setConfirmPassword(e.target.value)}
-                        />
-                        </label>
-                    </div>
-                    <div>
-                        <button type="submit">Register</button>
+                        <button type="submit">Login</button>
                     </div>
                     <div>
                         <h3 onClick={() => {
-                            router.push('/login');
-                        }}><u>I already have an account. Click here</u></h3>
+                            router.push('/register/new-user');
+                        }}><u>I don't have an account. Click here</u></h3>
                     </div>
                     </form>
                 </div>
@@ -116,4 +78,4 @@ const RegisterPage = () => {
     );
 }
 
-export default  RegisterPage;
+export default LoginPage;
