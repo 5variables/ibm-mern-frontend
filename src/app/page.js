@@ -14,6 +14,7 @@ export default function Home() {
   const checkToken = async () => {
     // check if token exists in localStorage
     const token = localStorage.getItem('token');
+    console.log(token)
 
     if (!token) {
       // redirect to RegisterPage if token doesn't exist
