@@ -1,20 +1,25 @@
 'use client'
 
+import BottomNavBar from '@/components/molecules/BottomNavBar';
+import Modal from '@/components/molecules/Modal';
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
-import { useEffect } from 'react';
+import { useState, useEffect } from 'react';
 
 
-export default function Home() {
+const Home = () => {
   // but we have to check if the user is authenticated
   // if it is not, we redirect it to register page
   // otherwise, we let him be :)
   const router = useRouter();
 
+  const [firstName, setFirstName] = useState('');
+  const [isAdmin, setIsAdmin] = useState(false);
+  const [isModal, setIsModal] = useState(false);
+
   const checkToken = async () => {
     // check if token exists in localStorage
     const token = localStorage.getItem('token');
-    console.log(token)
 
     if (!token) {
       // redirect to RegisterPage if token doesn't exist
@@ -27,7 +32,9 @@ export default function Home() {
         });
 
         // handle the response if needed
-        // console.log(response.data);
+        // console.log(response.data.user.firstName);
+        setFirstName(response.data.user.firstName);
+        setIsAdmin(response.data.user.admin);
       } catch (error) {
         console.error(error);
       }
@@ -39,17 +46,16 @@ export default function Home() {
     checkToken();
   }, []); 
 
-  const logout = () => {
-    localStorage.clear();
-    router.refresh();
-    checkToken();
-  }
-
   return (
     <div className="main">
-      {/* this will be the main page */}
       <h1>Events</h1>
-      <button onClick={logout}>Log Out</button>
+      <div className="content">
+
+      </div>
+      <BottomNavBar _firstName={firstName} _isAdmin={isAdmin} _setIsModal={setIsModal}/>
+      {isModal && (<Modal _isModal={isModal} _setIsModal={setIsModal}/>)}
     </div>
-  )
+  );
 }
+
+export default Home;
