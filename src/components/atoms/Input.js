@@ -10,7 +10,7 @@ const Input = ({ _onInputChange, _placeholder }) => {
     _onInputChange(value);
   }
 
-  return <input autoComplete="false" autoCorrect="false" type="text" value={inputText} onChange={handleInputChange} placeholder={_placeholder}/>;
+  return <input autoComplete="false" autoCorrect="false" type={_placeholder === "Password" ? "password" : "text"} value={inputText} onChange={handleInputChange} placeholder={_placeholder}/>;
 };
 
 export default Input;

@@ -50,21 +50,21 @@ const RegisterForm = () => {
         <div className="register-form">
             <h1>Create your account</h1>
             <form onSubmit={handleFormSubmit}>
-            <div className="names">
-                <Input _onInputChange={(value) => setFirstName(value)} _placeholder={"First Name"}/>
-                <Input _onInputChange={(value) => setLastName(value)} _placeholder={"Last Name"}/>
-            </div>
-            <div className="mid-fields">
-                <Input _onInputChange={(value) => setEmail(value)} _placeholder={"Mail"}/>
-                <Input _onInputChange={(value) => setPassword(value)} _placeholder={"Password"}/>
-            </div>
+                <div className="names">
+                    <Input _onInputChange={(value) => setFirstName(value)} _placeholder={"First Name"}/>
+                    <Input _onInputChange={(value) => setLastName(value)} _placeholder={"Last Name"}/>
+                </div>
+                <div className="mid-fields">
+                    <Input _onInputChange={(value) => setEmail(value)} _placeholder={"Mail"}/>
+                    <Input _onInputChange={(value) => setPassword(value)} _placeholder={"Password"}/>
+                </div>
 
-            <div className="bottom-fields">
-                <LargeButton _label="Sign Up -->" _type="submit"/>
-                <h3 onClick={() => {
-                    router.push('/register/login');
-                }}><u>I already have an account {"->"}</u></h3>
-            </div>
+                <div className="bottom-fields">
+                    <LargeButton _label="Sign Up -->" _type="submit"/>
+                    <h3 onClick={() => {
+                        router.push('/register/login');
+                    }}><u>I already have an account {"->"}</u></h3>
+                </div>
             </form>
         </div>
     );

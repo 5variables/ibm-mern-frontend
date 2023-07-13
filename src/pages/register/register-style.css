@@ -26,11 +26,11 @@
 
 /* Media query for screens up to a maximum width of 768px */
 @media (max-width: 768px) {
-    .main {
-      flex-direction: column; /* Stack the left and right sections vertically */
-    }
-  
-    .right {
-      display: none; /* Hide the right section on mobile screens */
-    }
+  .main {
+    flex-direction: column; /* Stack the left and right sections vertically */
   }
+
+  .right {
+    display: none; /* Hide the right section on mobile screens */
+  }
+}
