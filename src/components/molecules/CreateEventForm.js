@@ -13,6 +13,7 @@ const CreateEventForm = () => {
     const [description, setDescription] = useState('');
 
     const [users, setUsers] = useState([]);
+    const [userName, setUserName] = useState([]);
     const [invitations, setInvitations] = useState([]);
 
     const handleFormSubmit = async (e) => {
@@ -53,15 +54,42 @@ const CreateEventForm = () => {
 
     useEffect(() => {
         const fetchData = async () => {
-        try {
-            const res = await axios.get('http://localhost:3001/users/get-all');
-            const userEmails = res.data.map((user) => user.mail);
-            setUsers(userEmails);
-            // console.log(userEmails);
-        } catch (error) {
-            console.error(error);
-        }
-        };
+            try {
+              const res = await axios.get('http://localhost:3001/users/get-all');
+              const userData = await Promise.all(
+                res.data.map(async (user) => {
+                  const groupNames = user.groups.length > 0
+                    ? await fetchGroupNames(user.groups)
+                    : [];
+                  return {
+                    firstName: user.firstName,
+                    lastName: user.lastName,
+                    userMail: user.mail,
+                    groups: groupNames
+                  };
+                })
+              );
+              setUsers(userData);
+            } catch (error) {
+              console.error(error);
+            }
+          };
+          
+          const fetchGroupNames = async (groupIds) => {
+            console.log(groupIds);
+            const groupPromises = groupIds.map(async (groupId) => {
+              try {
+                // console.log(String(groupId));
+                const groupRes = await axios.get('http://localhost:3001/groups/get-group-name-from-groupid/'+groupId);
+                console.log(groupRes);
+                return groupRes.data;
+              } catch (error) {
+                console.error(`Error fetching group name for groupId: ${groupId}`, error);
+                return null; // Handle errors as needed
+              }
+            });
+            return Promise.all(groupPromises);
+          };
     
         fetchData();
     }, [])
@@ -75,19 +103,13 @@ const CreateEventForm = () => {
                     <Input _onInputChange={(value) => setDescription(value)} _placeholder={"Description"}/>
                 </div>
 
+                <h4>Select invitations</h4>
                 <div className="users">
-                    <h4>Select invitations</h4>
-                    <ul>
-                        {users.map((mail) => (
-                        <li
-                            key={mail}
-                            onClick={() => handleInvitationToggle(mail)}
-                            style={{ cursor: 'pointer', fontWeight: invitations.includes(mail) ? '700' : '200' }}
-                        >
-                            {mail}
-                        </li>
-                        ))}
-                    </ul>
+                    {users.map((user) => (
+                        <div style={{ backgroundColor: invitations.includes(user.userMail) ? 'rgb(0, 0, 0)' : 'rgb(233, 228, 228)', color: invitations.includes(user.userMail) ? 'white' : 'black' }} className="user" key={user.userMail} onClick={() => handleInvitationToggle(user.userMail)}>
+                            <p>{user.firstName} {user.lastName} <b>{user.groups.join(", ")}</b></p>
+                        </div>
+                    ))}
                 </div>
 
                 <div className="bottom-fields">
