@@ -3,8 +3,10 @@
 import BottomNavBar from '@/components/molecules/BottomNavBar';
 import Modal from '@/components/molecules/Modal';
 import axios from 'axios';
+import DateSelector from '../components/molecules/DateSelector'
 import { useRouter } from 'next/navigation';
 import { useState, useEffect } from 'react';
+import EventList from '@/components/molecules/EventList';
 
 
 const Home = () => {
@@ -50,7 +52,8 @@ const Home = () => {
     <div className="main">
       <h1>Events</h1>
       <div className="content">
-
+      <DateSelector/>
+      <EventList/>
       </div>
       <BottomNavBar _firstName={firstName} _isAdmin={isAdmin} _setIsModal={setIsModal}/>
       {isModal && (<Modal _isModal={isModal} _setIsModal={setIsModal}/>)}
