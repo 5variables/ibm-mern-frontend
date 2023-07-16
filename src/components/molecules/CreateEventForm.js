@@ -1,16 +1,34 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useRouter } from 'next/navigation';
 import axios from 'axios';
 import Input from '@/components/atoms/Input';
 import LargeButton from '@/components/atoms/LargeButton';
 import './molecules-style.css';
+import '../atoms/atoms-style.css';
+
+// import mapboxgl from 'mapbox-gl';
+import mapboxgl from '!mapbox-gl'; // eslint-disable-line import/no-webpack-loader-syntax
+import Autosuggest from 'react-autosuggest';
+import 'mapbox-gl/dist/mapbox-gl.css';
 
 
-const CreateEventForm = () => {
+const CreateEventForm = () => { 
+    const [_lat, setLat] = useState(21.2087);
+    const [_lon, setLon] = useState(45.7489);
+    const [_zoom, setZoom] = useState(10);
+    const [locationName, setLocationName] = useState("");
+
+    const mapContainer = useRef(null);
+    const map = useRef(null);
     const router = useRouter();
+    const [value, setValue] = useState('');
+    const [suggestions, setSuggestions] = useState([]);
+    const [_coords, setCoords] = useState([]);
 
     const [eventName, setEventName] = useState('');
     const [description, setDescription] = useState('');
+
+    const [suggestionText, setSuggestionText] = useState('');
 
     const [users, setUsers] = useState([]);
     const [userName, setUserName] = useState([]);
@@ -50,8 +68,10 @@ const CreateEventForm = () => {
           updatedInvitations.splice(invitationIndex, 1);
           setInvitations(updatedInvitations);
         }
-      };
-
+    };
+    
+    
+    
     useEffect(() => {
         const fetchData = async () => {
             try {
@@ -92,15 +112,98 @@ const CreateEventForm = () => {
           };
     
         fetchData();
+
+        mapboxgl.accessToken = 'pk.eyJ1IjoicnViaWM0IiwiYSI6ImNrY3Vla3R1ZjF0YnYyeXQ2c243eWVpeHEifQ.Hgj0BjhuuOAowR_pE97V_Q';
+
+        if (map.current) return; // initialize map only once
+          map.current = new mapboxgl.Map({
+            container: mapContainer.current,
+            style: 'mapbox://styles/rubic4/clk5n3pvd00j501pe0juiej4p',
+            center: [_lat, _lon],
+            zoom: _zoom
+        });
+
+        map.current.on('load', function () {
+            map.current.resize();
+        });
+
     }, [])
 
+    const computeSuggestion = async (value) => {
+      try {
+        const response = await axios.get(
+          `https://geocode.maps.co/search?q=${value}`
+        );
+        const suggestions = response.data.map((item) => [item.display_name, item.lat, item.lon]);
+        // const coords = response.data.map((item) => [item.lat, item.lon]);
+        // console.log(coords);
+        let name = response.data[0].display_name.split(",")[0];
+
+        const lat = response.data[0].lat;
+        const lon = response.data[0].lon;
+        
+
+        setLocationName(name);
+        setSuggestions(suggestions);
+
+      } catch (error) {
+        console.error('Error:', error);
+      }
+    };
+
+    const clickSuggestion = (suggestion) => {
+      // console.log(suggestion);
+
+      const markerElement = document.createElement('div');
+      markerElement.className = 'custom-marker';
+      markerElement.style.backgroundColor = 'black';
+      markerElement.style.color = 'white';
+      markerElement.style.width = 'fit-content';
+      markerElement.style.paddingRight = '20px';
+      markerElement.style.paddingLeft = '20px';
+      markerElement.style.height = '40px';
+      markerElement.style.borderRadius = '50px';
+      markerElement.style.display = 'flex';
+      markerElement.style.justifyContent = 'center';
+      markerElement.style.alignItems = 'center';
+      markerElement.innerText = suggestion[0].split(",")[0];
+
+      const marker = new mapboxgl.Marker({ element: markerElement }).setLngLat([parseFloat(suggestion[2]), parseFloat(suggestion[1])]).addTo(map.current);
+      
+      map.current.flyTo({
+        center: [parseFloat(suggestion[2]), parseFloat(suggestion[1])],
+        zoom: 15,
+        duration: 3500, // Specify the duration in milliseconds
+      });
+    }
+
     return(
-        <div className="register-form">
+        <div className="create-event-form">
             <h1>Create event</h1>
             <form onSubmit={handleFormSubmit}>
                 <div className="mid-fields">
                     <Input _onInputChange={(value) => setEventName(value)} _placeholder={"Event title"}/>
                     <Input _onInputChange={(value) => setDescription(value)} _placeholder={"Description"}/>
+                    <div className="names">
+                        <Input _onInputChange={(value) => setDescription(value)} _placeholder={"Date"}/>
+                        <Input _onInputChange={(value) => setDescription(value)} _placeholder={"Time"}/>
+                    </div>
+                    <div className="suggestions">
+                      { 
+                        suggestions.map((suggestion) => (
+                          suggestionText ? <div className="suggestion" key={suggestion} onClick={() => clickSuggestion(suggestion)}>{suggestion[0]}</div> : ""
+                        ))
+                      }
+                    </div>
+                    <Input _onInputChange={(value) => {
+                      setSuggestionText(value);
+                    }} _placeholder={"Location"}/>
+                    <button onClick={() => computeSuggestion(suggestionText)}>Search location</button>
+                    
+                </div>
+
+                <div className="map-container">
+                  <div ref={mapContainer} className="map" />
                 </div>
 
                 <h4>Select invitations</h4>
