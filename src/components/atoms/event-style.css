@@ -1,0 +1,27 @@
+.event-container {
+    width: 400px;
+    padding: 20px;
+    margin-bottom: 20px;
+    background-color: #f0f0f0;
+    border-radius: 50px;
+  }
+  
+  .event-description {
+    margin-top: 10px;
+  }
+  
+  .event-list {
+    display: grid;
+    grid-template-columns: repeat(2, 0fr);
+    flex-wrap: wrap;
+  }
+  
+  .event-wrapper {
+    margin-right: 10px;
+    margin-bottom: 10px;
+  }
+  
+  h2 {
+    margin-bottom: 10px;
+  }
+  
