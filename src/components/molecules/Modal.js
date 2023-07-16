@@ -12,7 +12,9 @@ const Modal = ({ _isModal, _setIsModal }) => {
     <div>
       <div className="modal">
         <div className="modal-content">
-            <button onClick={toggleModal}>Close</button>
+            <div className='close-btn'>
+              <button onClick={toggleModal}>Close</button>
+            </div>
             <CreateEventForm />
         </div>
       </div>
