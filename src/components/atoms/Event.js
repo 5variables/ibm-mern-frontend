@@ -1,14 +1,19 @@
 import React from 'react';
+import './event-style.css';
 
-const EventItem = ({ event }) => {
+const Event = ({ event }) => {
   return (
     <div className="event-item">
-      <h3>{event.title}</h3>
-      <p>{event.description}</p>
-      <p>Location: {event.location.coordinates.join(', ')}</p>
-      <p>Participants: {event.participants.join(', ')}</p>
+        <div className="event-info">
+            <p><strong>{event.title} at Location</strong></p>
+            <p>Participants: {event.participants}</p>
+        </div>
+        <div className="event-time">
+            <p><strong>Starting at xx:xx</strong></p>
+            <button>View</button>
+        </div>
     </div>
   );
 };
 
-export default EventItem;
+export default Event;

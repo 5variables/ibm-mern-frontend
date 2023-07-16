@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import Event from '../atoms/Event';
-import '../atoms/event-style.css'
+import '../atoms/event-style.css';
 
 const EventList = () => {
   const [events, setEvents] = useState([]);
@@ -20,8 +20,7 @@ const EventList = () => {
   };
 
   return (
-    <div>
-      <h2>Event List</h2>
+    <div className="container">
       <div className="event-list">
         {events.map((event) => (
           <div key={event._id.$oid} className="event-wrapper">
@@ -30,6 +29,9 @@ const EventList = () => {
             </div>
           </div>
         ))}
+      </div>
+      <div className="map-square">
+        <h2>Future Map</h2>
       </div>
     </div>
   );

@@ -27,15 +27,15 @@ const DateSelector = () => {
   };
 
   return (
-    <div>
-      <div className="date-buttons">
-        <button onClick={handlePreviousDay}>&lt;</button>
-        <button onClick={handleNextDay}>&gt;</button>
-      </div>
+    <div className='container'>
       <div className="date-preview">
+      <button onClick={handlePreviousDay} className='leftButton'>&lt;--</button>
+        <p>{getPreviewDate(selectedDate, -2)}</p>
         <p>{getPreviewDate(selectedDate, -1)}</p>
         <DateDisplay date={selectedDate} isActive={!transition} />
         <p>{getPreviewDate(selectedDate, 1)}</p>
+        <p>{getPreviewDate(selectedDate, 2)}</p>
+        <button onClick={handleNextDay} className='rightButton'>--&gt;</button>
       </div>
     </div>
   );
@@ -44,7 +44,14 @@ const DateSelector = () => {
 const getPreviewDate = (date, offset) => {
   const newDate = new Date(date);
   newDate.setDate(date.getDate() + offset);
-  return newDate.toDateString();
+  
+  const formattedDate = newDate.toLocaleString('en-US', {
+    month: 'long',
+    day: 'numeric',
+  });
+  
+  return formattedDate;
 };
+
 
 export default DateSelector;

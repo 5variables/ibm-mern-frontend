@@ -1,27 +1,69 @@
 .event-container {
-    width: 400px;
+    width: 600px;
+    height: 143px;
+    flex-shrink: 0;
+    border-radius: 33px;
+    border: 4px solid #DADADA;
+    background: linear-gradient(to right, #F2F2F2, #E6E6E6);
+    box-shadow: 0px 4px 18px 1px rgba(0, 0, 0, 0.10);
     padding: 20px;
-    margin-bottom: 20px;
-    background-color: #f0f0f0;
-    border-radius: 50px;
-  }
-  
-  .event-description {
+}
+
+
+.event-description {
     margin-top: 10px;
-  }
-  
-  .event-list {
-    display: grid;
-    grid-template-columns: repeat(2, 0fr);
-    flex-wrap: wrap;
-  }
-  
-  .event-wrapper {
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.event-list {
+    display: flex;
+    flex-direction: column;
+    padding-top: 60px;
+}
+
+.map-square {
+    width: 600px;
+    height: 600px;
+    background-color: #f0f0f0;
+    margin-left: 160px;
+}
+
+.event-wrapper {
     margin-right: 10px;
     margin-bottom: 10px;
-  }
-  
-  h2 {
+}
+
+h2 {
     margin-bottom: 10px;
+}
+
+.event-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.event-info {
+    flex-grow: 1;
+}
+
+.event-time {
+    display: flex;
+    flex-direction: column; /* Set the flex-direction to column */
+    align-items: flex-start;
   }
   
+  .event-time div {
+    display: flex;
+    align-items: flex-end;
+  }
+  
+  .event-time p {
+    margin-bottom: 5px;
+  }
