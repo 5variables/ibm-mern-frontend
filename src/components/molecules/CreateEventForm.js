@@ -27,6 +27,8 @@ const CreateEventForm = () => {
 
     const [eventName, setEventName] = useState('');
     const [description, setDescription] = useState('');
+    const [date, setDate] = useState();
+    const [time, setTime] = useState();
 
     const [suggestionText, setSuggestionText] = useState('');
 
@@ -34,19 +36,30 @@ const CreateEventForm = () => {
     const [userName, setUserName] = useState([]);
     const [invitations, setInvitations] = useState([]);
 
+    const eventInfo = {
+      location: {
+        coordinates: [_lon, _lat], // Replace longitude and latitude with actual values
+        name: locationName
+      },
+      // Other event properties...
+    };
+
     const handleFormSubmit = async (e) => {
         e.preventDefault();
         
         // check if all fields are completed
-        if (eventName && description) {
-            
+        if (eventName && description && eventInfo && date && time && invitations) {
+            console.log(eventName, description, date, time, eventInfo.location, invitations);
+
             try {
                 const response = await axios.post('http://localhost:3001/events/create-event', {
                     title: eventName,
+                    date: new Date(`${date}T${time}`),
                     description: description,
-                    invitations: invitations
+                    invitations: invitations,
+                    location: eventInfo.location,
                 });
-                
+
                 location.reload();
             } catch (error) {
                 console.error(error);
@@ -96,12 +109,12 @@ const CreateEventForm = () => {
           };
           
           const fetchGroupNames = async (groupIds) => {
-            console.log(groupIds);
+            // console.log(groupIds);
             const groupPromises = groupIds.map(async (groupId) => {
               try {
                 // console.log(String(groupId));
                 const groupRes = await axios.get('http://localhost:3001/groups/get-group-name-from-groupid/'+groupId);
-                console.log(groupRes);
+                // console.log(groupRes);
                 return groupRes.data;
               } catch (error) {
                 console.error(`Error fetching group name for groupId: ${groupId}`, error);
@@ -185,20 +198,20 @@ const CreateEventForm = () => {
                     <Input _onInputChange={(value) => setEventName(value)} _placeholder={"Event title"}/>
                     <Input _onInputChange={(value) => setDescription(value)} _placeholder={"Description"}/>
                     <div className="names">
-                        <Input _onInputChange={(value) => setDescription(value)} _placeholder={"Date"}/>
-                        <Input _onInputChange={(value) => setDescription(value)} _placeholder={"Time"}/>
+                        <Input _onInputChange={(value) => setDate(value)} _placeholder={"Date"}/>
+                        <Input _onInputChange={(value) => setTime(value)} _placeholder={"Time"}/>
                     </div>
                     <div className="suggestions">
                       { 
                         suggestions.map((suggestion) => (
-                          suggestionText ? <div className="suggestion" key={suggestion} onClick={() => clickSuggestion(suggestion)}>{suggestion[0]}</div> : ""
+                          suggestionText ? <div className="suggestion" key={suggestion[0]} onClick={() => clickSuggestion(suggestion)}>{suggestion[0]}</div> : ""
                         ))
                       }
                     </div>
                     <Input _onInputChange={(value) => {
                       setSuggestionText(value);
                     }} _placeholder={"Location"}/>
-                    <button onClick={() => computeSuggestion(suggestionText)}>Search location</button>
+                    <div className="search-btn" onClick={() => computeSuggestion(suggestionText)}>Find location</div>
                     
                 </div>
 

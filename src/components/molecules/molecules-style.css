@@ -185,6 +185,10 @@ h1 {
     width: 100%;
 }
 
+.close {
+    width: 100%;
+}
+
 .users {
     height: 350;
     width: fit-content;
@@ -217,6 +221,29 @@ h1 {
 
     transition: .2s all;
     cursor: pointer;
+}
+
+.search-btn {
+    font-family: 'Inter';
+    font-weight: 500;
+
+    width: 100%;
+    background-color: black;
+    color: white;
+    height: 45px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    border-radius: 16px;
+    cursor: pointer;
+
+    transition: .3s all;
+}
+
+.search-btn:hover {
+    opacity: 80%;
 }
 
 .user:hover {
