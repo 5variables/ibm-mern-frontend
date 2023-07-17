@@ -13,6 +13,10 @@ import 'mapbox-gl/dist/mapbox-gl.css';
 
 
 const CreateEventForm = () => { 
+    const [groups, setGroups] = useState([]);
+    const [filterGroup, setFilterGroup] = useState("all");
+    const [selectedGroup, setSelectedGroup] = useState("all");
+
     const [_lat, setLat] = useState(21.2087);
     const [_lon, setLon] = useState(45.7489);
     const [_zoom, setZoom] = useState(10);
@@ -126,6 +130,19 @@ const CreateEventForm = () => {
     
         fetchData();
 
+        const fetchGroups = async () => {
+          try {
+            const response = await axios.get("http://localhost:3001/groups/get-all");
+            
+            const grupe = response.data.map((item) => [item.name, item._id]);
+            // console.log(grupe);
+            setGroups(grupe);
+          } catch (error) {
+            console.error("Error fetching the groups.")
+          }
+        }
+        fetchGroups();
+
         mapboxgl.accessToken = 'pk.eyJ1IjoicnViaWM0IiwiYSI6ImNrY3Vla3R1ZjF0YnYyeXQ2c243eWVpeHEifQ.Hgj0BjhuuOAowR_pE97V_Q';
 
         if (map.current) return; // initialize map only once
@@ -220,8 +237,23 @@ const CreateEventForm = () => {
                 </div>
 
                 <h4>Select invitations</h4>
+                <div className="groups-selector">
+                    <div className="gr-selector" onClick={() => {setFilterGroup("all"); setSelectedGroup("all")}} style={{ backgroundColor: selectedGroup.includes("all") ? 'rgb(0, 0, 0)' : 'rgb(233, 228, 228)', color: selectedGroup.includes("all") ? 'white' : 'black' }} >All</div>
+                    {groups && groups.map((group) => (
+                      <div className="gr-selector" onClick={() => {setFilterGroup(group[0]); setSelectedGroup(group[0])}} style={{ backgroundColor: selectedGroup.includes(group[0]) ? 'rgb(0, 0, 0)' : 'rgb(233, 228, 228)', color: selectedGroup.includes(group[0]) ? 'white' : 'black' }}>{group[0]}</div>
+                    ))}
+                </div>
                 <div className="users">
-                    {users.map((user) => (
+                    {filterGroup === "all"
+                    ? users
+                    .map((user) => (
+                        <div style={{ backgroundColor: invitations.includes(user.userMail) ? 'rgb(0, 0, 0)' : 'rgb(233, 228, 228)', color: invitations.includes(user.userMail) ? 'white' : 'black' }} className="user" key={user.userMail} onClick={() => handleInvitationToggle(user.userMail)}>
+                            <p>{user.firstName} {user.lastName} <b>{user.groups.join(", ")}</b></p>
+                        </div>
+                    ))
+                    : users
+                    .filter((user) => user.groups.includes(filterGroup))
+                    .map((user) => (
                         <div style={{ backgroundColor: invitations.includes(user.userMail) ? 'rgb(0, 0, 0)' : 'rgb(233, 228, 228)', color: invitations.includes(user.userMail) ? 'white' : 'black' }} className="user" key={user.userMail} onClick={() => handleInvitationToggle(user.userMail)}>
                             <p>{user.firstName} {user.lastName} <b>{user.groups.join(", ")}</b></p>
                         </div>
