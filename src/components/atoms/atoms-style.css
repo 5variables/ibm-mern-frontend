@@ -16,6 +16,8 @@ input {
     padding-left: 18px;
 
     outline: none;
+
+    transition: .4s all;
 }
 
 button {
