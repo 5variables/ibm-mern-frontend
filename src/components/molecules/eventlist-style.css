@@ -1,0 +1,36 @@
+.event-list {
+    width: 50%;
+    margin: 0px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column; 
+    justify-content: flex-start;
+    align-items: center;
+    background-color: gray;
+    overflow-y: auto;
+  }
+
+  .card {
+    border: 3px solid #ccc;
+    border-radius: 30px;
+    padding: 10px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+    display: flex;
+  }
+
+  .map {
+    flex: 1 1 50%;
+    margin-right: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Aliniere verticală în centru */
+    align-items: center; /* Aliniere orizontală în centru */
+    background-color: lightblue;
+  }
+  
+  
+  
+  

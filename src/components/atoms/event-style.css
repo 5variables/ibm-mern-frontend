@@ -84,3 +84,48 @@ h2 {
         margin-left: 0 px
     }
 }
+
+
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .modal-content {
+    background-color: #fff;
+    padding: 20px;
+    width: 800px;
+    height: 700px;
+    text-align: center;
+    overflow: auto;
+  }
+  
+  .modal h2 {
+    font-size: 24px;
+    margin-bottom: 10px;
+  }
+  
+  .modal p {
+    font-size: 18px;
+    margin-bottom: 8px;
+  }
+  
+  .modal button {
+    padding: 8px 16px;
+    background-color: #ddd;
+    color: #333;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .modal button:hover {
+    background-color: #bbb;
+  }
