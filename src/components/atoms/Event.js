@@ -7,7 +7,7 @@ import Autosuggest from 'react-autosuggest';
 import 'mapbox-gl/dist/mapbox-gl.css';
 
 const Event = ({ event }) => {
-  //const router = useRouter();
+  // const router = useRouter();
 
   const date = new Date(event.date);
   const hours = date.getHours();

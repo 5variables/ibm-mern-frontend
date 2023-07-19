@@ -19,7 +19,7 @@
 }
 
 .bottom-fields {
-    margin-top: 12px;
+    margin-top: 16px;
     display: flex;
     flex-direction: column;
     gap: 14px;
@@ -189,6 +189,29 @@ h1 {
     width: 100%;
 }
 
+.modal button {
+    /* width: 100%; */
+    height: 45px;
+    background-color: black;
+
+    color: white;
+    font-family: 'Inter';
+    font-size: medium;
+    font-weight: 700;
+
+    border-radius: 16px;
+    border: none;
+    transition: .4s all;
+    box-shadow: 0px 4px 33px 7px rgba(0, 0, 0, 0.25);
+}
+
+.modal button:hover {
+    /* opacity: 80%; */
+    cursor: pointer;
+    box-shadow: 0px 4px 33px 15px rgba(0, 0, 0, 0.35);
+}
+
+
 .users {
     height: 350;
     width: fit-content;
@@ -283,6 +306,10 @@ h1 {
     justify-content: flex-start;
     align-items: center;
     gap: 10px;
+}
+
+.create-ev-form {
+    width: 400px;
 }
 
 .groups-selector {
