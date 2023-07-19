@@ -210,7 +210,7 @@ const CreateEventForm = () => {
     return(
         <div className="create-event-form">
             <h1>Create event</h1>
-            <form onSubmit={handleFormSubmit}>
+            <form onSubmit={handleFormSubmit} className="create-ev-form">
                 <div className="mid-fields">
                     <Input _onInputChange={(value) => setEventName(value)} _placeholder={"Event title"}/>
                     <Input _onInputChange={(value) => setDescription(value)} _placeholder={"Description"}/>
