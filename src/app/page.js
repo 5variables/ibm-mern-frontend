@@ -15,74 +15,47 @@ const Home = () => {
   // otherwise, we let him be :)
   const router = useRouter();
 
-  const [mail, setMail] = useState();
   const [firstName, setFirstName] = useState('');
   const [isAdmin, setIsAdmin] = useState(false);
   const [isModal, setIsModal] = useState(false);
-  const [groups, setGroups] = useState([]);
-  const [groupsName, setGroupsName] = useState([]);
 
-  const [modalType, setModalType] = useState("");
+  const checkToken = async () => {
+    // check if token exists in localStorage
+    const token = localStorage.getItem('token');
 
-  
-  useEffect(() => {
-    const checkToken = async () => {
-      // check if token exists in localStorage
-      const token = localStorage.getItem('token');
-  
-      if (!token) {
-        // redirect to RegisterPage if token doesn't exist
-        router.push('/register/new-user');
-      } else {
-        // verify user with token
-        try {
-          const response = await axios.post('http://localhost:3001/register/verify-token', {
-            token: token,
-          });
-  
-          // handle the response if needed
-          // console.log(response.data.user.groups);
-          setGroups(response.data.user.groups);
-          setFirstName(response.data.user.firstName);
-          setIsAdmin(response.data.user.admin);
-          setMail(response.data.user.mail);
-          // console.log("da " + response.data.user.mail);
-        } catch (error) {
-          console.error(error);
-        }
+    if (!token) {
+      // redirect to RegisterPage if token doesn't exist
+      router.push('/register/new-user');
+    } else {
+      // verify user with token
+      try {
+        const response = await axios.post('http://localhost:3001/register/verify-token', {
+          token: token,
+        });
+
+        // handle the response if needed
+        // console.log(response.data.user.firstName);
+        setFirstName(response.data.user.firstName);
+        setIsAdmin(response.data.user.admin);
+      } catch (error) {
+        console.error(error);
       }
-    };
-
-    
-    checkToken();   
-  }, []);
-
-  const getGroupName = async ( groupId ) => {
-    try {
-        const res = await axios.get("http://localhost:3001/groups/get-group-name-from-groupid/" + groupId);
-        // console.log(res.data);
-        setGroupsName(names => [...names, res.data.name]);
-    } catch (error) {
-        console.log("Error getting the group: " + groupId);
     }
-  }
+  };
 
   useEffect(() => {
-    // Fetch group names whenever the groups state changes
-    for (let i = 0; i < groups.length; i++) {
-      getGroupName(groups[i]);
-    }
-  }, [groups]);
+
+    checkToken();
+  }, []); 
 
   return (
     <div className="main">
       <h1>Events</h1>
       <div className="content">
       <DateSelector/>
-      <EventList/>
       </div>
-      <BottomNavBar _groups={groupsName} _firstName={firstName} _mail={mail} _isAdmin={isAdmin} _setIsModal={setIsModal} _setModalType={setModalType} />
-      {isModal && (<Modal _isModal={isModal} _setIsModal={setIsModal} _modalType={modalType}/>)}
+      <BottomNavBar _firstName={firstName} _isAdmin={isAdmin} _setIsModal={setIsModal}/>
+      {isModal && (<Modal _isModal={isModal} _setIsModal={setIsModal}/>)}
     </div>
   );
 }

@@ -14,24 +14,31 @@
 }
 
 .container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.event-list {
-    display: flex;
+    display: block;
+    text-align: center;
+    margin: 0 auto;
+  }
+  
+  .event-list {
+    display: inline-block;
+    vertical-align: top;
+    grid-template-rows: auto;
     flex-direction: column;
     padding-top: 60px;
-}
-
-.map-square {
+    margin-top: 200px; /* Add top margin */
+  }
+  
+  .map-square {
+    display: inline-block;
+    vertical-align: top;
     width: 600px;
     height: 600px;
     background-color: #f0f0f0;
-    margin-left: 160px;
-    margin-top: 100px;
-}
+    margin-top:100px;
+    margin-left: 100px; /* Add top margin */
+  }
+  
+  
 
 .event-wrapper {
     margin-right: 10 px;
@@ -96,36 +103,37 @@ h2 {
     display: flex;
     align-items: center;
     justify-content: center;
-  }
-  
-  .modal-content {
+    z-index: 3;
+}
+
+.modal-content {
     background-color: #fff;
     padding: 20px;
     width: 800px;
     height: 700px;
     text-align: center;
     overflow: auto;
-  }
-  
-  .modal h2 {
+}
+
+.modal h2 {
     font-size: 24px;
     margin-bottom: 10px;
-  }
-  
-  .modal p {
+}
+
+.modal p {
     font-size: 18px;
     margin-bottom: 8px;
-  }
-  
-  .modal button {
+}
+
+.modal button {
     padding: 8px 16px;
     background-color: #ddd;
     color: #333;
     border: none;
     border-radius: 4px;
     cursor: pointer;
-  }
-  
-  .modal button:hover {
+}
+
+.modal button:hover {
     background-color: #bbb;
-  }
+}
