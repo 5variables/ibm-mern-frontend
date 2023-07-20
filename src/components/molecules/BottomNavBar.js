@@ -3,7 +3,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import axios from 'axios';
 
-const BottomNavBar = ({_groups, _mail, _firstName, _isAdmin, _setIsModal}) => {
+const BottomNavBar = ({_groups, _mail, _firstName, _isAdmin, _setIsModal, _setModalType }) => {
     const router = useRouter();
 
     const [isPop, setIsPop] = useState(false);
@@ -162,8 +162,9 @@ const BottomNavBar = ({_groups, _mail, _firstName, _isAdmin, _setIsModal}) => {
             {isPop && popContent === "user" ? (
                 <div className="popup" ref={popupRef}>
                     {_isAdmin && (
-                        <div className='popup-option' onClick={() => _setIsModal(true)}>Create event</div>
+                        <div className='popup-option' onClick={() => { _setIsModal(true); _setModalType("create-event") }}>Create event</div>
                     )}
+                    <div className='popup-option' onClick={() => { _setIsModal(true); _setModalType("create-group") }}>Create group</div>
                     <div className='popup-option' onClick={logout}>Log Out</div>
                 </div>
             ) :

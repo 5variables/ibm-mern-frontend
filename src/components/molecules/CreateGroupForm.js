@@ -16,12 +16,13 @@ const CreateGroupForm = () => {
 
     const [groupName, setGroupName] = useState('');
     const [invitations, setInvitations] = useState([]);
+    const [users, setUsers] = useState([]);
 
     const handleFormSubmit = async (e) => {
-        e.preventDafault();
+        e.preventDefault();
 
-        if(groupName && invitations && members) {
-            console.log(groupName,invitations,members);
+        if(groupName && invitations) {
+            // console.log(groupName, invitations);
 
             try{
                 const response = await axios.post('http://localhost:3001/groups/create-group', {
@@ -49,6 +50,8 @@ const CreateGroupForm = () => {
           updatedInvitations.splice(invitationIndex, 1);
           setInvitations(updatedInvitations);
         }
+        console.log(groupName);
+        console.log(invitations);
     };
 
     useEffect(() => {
@@ -100,8 +103,6 @@ const CreateGroupForm = () => {
               <form onSubmit={handleFormSubmit}>
                 <div className="mid-fields">
                     <Input _onInputChange={(value) => setGroupName(value)} _placeholder={"Group Name"}/>
-                    <Input _onInputChange={(value) => setInvitations(value)} _placeholder={"Invitations"}/>
-                    <Input _onInputChange={(value) => setMembers(value)} _placeholder={"Members"}/>
                 </div>
                 <h4>Select invitations</h4>
               <div className="users">
@@ -119,3 +120,5 @@ const CreateGroupForm = () => {
         
     );
 }
+
+export default CreateGroupForm;
