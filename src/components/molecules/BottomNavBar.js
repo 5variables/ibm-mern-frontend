@@ -50,6 +50,7 @@ const BottomNavBar = ({_firstName, _isAdmin, _setIsModal}) => {
                 {_isAdmin && (
                     <div className='popup-option' onClick={() => _setIsModal(true)}>Create event</div>
                 )}
+                {/* <div className='popup-option' onClick={}>Create Group</div> */}
                 <div className='popup-option' onClick={logout}>Log Out</div>
             </div>
         )}
