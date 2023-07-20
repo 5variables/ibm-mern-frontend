@@ -50,10 +50,14 @@ h1 {
 .navbar {
     position: fixed;
     display: flex;
-    justify-content: space-around;
+    justify-content: space-evenly;
+    align-items: center;
+    gap: 10px;
     
-    height: 50px;
+    height: 60px;
     width: fit-content;
+    padding-left: 10px;
+    padding-right: 10px;
     margin-bottom: 24px;
     
     bottom: 0;
@@ -70,7 +74,11 @@ h1 {
     border: none;
     background-color: transparent;
     font-size: 16px;
+    color: black;
     cursor: pointer;
+
+    padding-left: 20px;
+    padding-right: 20px;
 }
 
 .map-container {
@@ -114,7 +122,9 @@ h1 {
     justify-content: center;
     align-items: center;
 
-    width: 150px;
+    width: 350px;
+    height: fit-content;
+
     position: absolute;
     bottom: 100%;
     left: 50%;
@@ -123,10 +133,13 @@ h1 {
 
     padding-top: 15px;
     padding-bottom: 15px;
+    margin-bottom: 10px;
 
     border: 1px solid #ccc;
     border-radius: 20px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+    transform: .4s all;
 }
 
 .popup-option {
@@ -140,6 +153,10 @@ h1 {
 
     margin-bottom: 5px;
     cursor: pointer;
+}
+
+.popup-title {
+    font-weight: 700;
 }
 
 .popup-option:hover {
@@ -221,7 +238,22 @@ h1 {
     display: flex;
     justify-content: flex-start;
     flex-wrap: wrap;
-    margin-right: 1em;
+    flex-direction: row;
+    align-content: flex-start;
+    gap: 10px;
+}
+
+.user-invitations {
+    height: 350;
+    width: fit-content;
+    overflow-y: auto;
+
+    margin-top: 10px;
+
+    flex-grow: 1;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
     flex-direction: row;
     align-content: flex-start;
     gap: 10px;
@@ -267,6 +299,30 @@ h1 {
 
 .search-btn:hover {
     opacity: 80%;
+}
+
+.invite-btn {
+    font-family: 'Inter';
+    font-weight: 500;
+
+    width: fit-content;
+    background-color: black;
+    color: white;
+    height: 45px;
+
+    margin-top: 20px;
+
+    padding-left: 20px;
+    padding-right: 20px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    border-radius: 16px;
+    cursor: pointer;
+
+    transition: .3s all;
 }
 
 .user:hover {
@@ -344,10 +400,45 @@ h1 {
     opacity: 80%;
 }
 
-@media (max-width: 768px) {
+.navbar .group-btn {
+    background-color: #3d51d0;
+    color: white;
+}
+
+.notifications {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+
+    width: 100%;
+    margin-top: 10px;
+}
+
+.notif-btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+.notif-nr {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    /* background-color: yellow; */
+    width: 30px;
+    height: 30px;
+
+    border-radius: 16px;
+}
+
+/* @media (max-width: 768px) {
     .navbar {
-        width: 100%;
+        width: fit-content;
         left: 0;
         transform: none;
     }
-}
+} */

@@ -53,7 +53,7 @@ const CreateEventForm = () => {
         
         // check if all fields are completed
         if (eventName && description && eventInfo && date && time && invitations) {
-            console.log(eventName, description, date, time, eventInfo.location, invitations);
+            // console.log(eventName, description, date, time, eventInfo.location, invitations);
 
             try {
                 const response = await axios.post('http://localhost:3001/events/create-event', {
@@ -106,6 +106,7 @@ const CreateEventForm = () => {
                   };
                 })
               );
+              console.log(userData);
               setUsers(userData);
             } catch (error) {
               console.error(error);
