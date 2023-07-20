@@ -22,6 +22,8 @@ const Home = () => {
   const [groups, setGroups] = useState([]);
   const [groupsName, setGroupsName] = useState([]);
 
+  const [modalType, setModalType] = useState("");
+
   
   useEffect(() => {
     const checkToken = async () => {
@@ -79,8 +81,8 @@ const Home = () => {
       <DateSelector/>
       <EventList/>
       </div>
-      <BottomNavBar _groups={groupsName} _firstName={firstName} _mail={mail} _isAdmin={isAdmin} _setIsModal={setIsModal}/>
-      {isModal && (<Modal _isModal={isModal} _setIsModal={setIsModal}/>)}
+      <BottomNavBar _groups={groupsName} _firstName={firstName} _mail={mail} _isAdmin={isAdmin} _setIsModal={setIsModal} _setModalType={setModalType} />
+      {isModal && (<Modal _isModal={isModal} _setIsModal={setIsModal} _modalType={modalType}/>)}
     </div>
   );
 }
