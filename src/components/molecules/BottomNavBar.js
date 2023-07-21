@@ -150,7 +150,7 @@ const BottomNavBar = ({_groups, _mail, _firstName, _isAdmin, _setIsModal, _setMo
     return(
         <div className="navbar">
             {_groups && _groups.map((group) => (
-                <button className='group-btn' onClick={() => handleButtonPopup(group)}>{group}</button>
+                <button key={group} className='group-btn' onClick={() => handleButtonPopup(group)}>{group}</button>
             ))}
             <button
                 className={"profile"}
@@ -173,7 +173,7 @@ const BottomNavBar = ({_groups, _mail, _firstName, _isAdmin, _setIsModal, _setMo
                     <div className='popup-title'>Notifications</div>
                     <div className='notifications'>
                         {notifications.map((not) => (
-                            <div className='popup-option' onClick={() => confirmInvitation(not)}>{not}</div>
+                            <div key={not} className='popup-option' onClick={() => confirmInvitation(not)}>{not}</div>
                         ))}
                     </div>
                 </div>
