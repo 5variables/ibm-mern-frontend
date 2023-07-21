@@ -1,6 +1,8 @@
 
 .date-rectangle.active {
     background-color: #f0f0f0;
+    padding: 10px;
+    border-radius: 16px;
 }
 
 /* .container {
@@ -72,7 +74,11 @@
 
 
 .date-preview {
-    width: 642px;
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+
+    width: fit-content;
     height: 69px;
     margin: 0 auto;
     flex-shrink: 0;
@@ -96,8 +102,7 @@
 
 @media (max-width:768px) {
     .date-preview {
-        width: 90%;
-        height: auto
+        width: 80%;
     }
 
     .date-preview p {

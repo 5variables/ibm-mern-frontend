@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import DateDisplay from '../atoms/DateDisplay';
-import '../atoms/date-style.css'
+import '../atoms/date-style.css';
 import EventList from '../molecules/EventList';
 
 const DateSelector = () => {
@@ -8,21 +8,25 @@ const DateSelector = () => {
   const [transition, setTransition] = useState(false);
 
   const handlePreviousDay = () => {
-    const newDate = new Date(selectedDate);
-    newDate.setDate(selectedDate.getDate() - 1);
     setTransition(true);
     setTimeout(() => {
-      setSelectedDate(newDate);
+      setSelectedDate((prevDate) => {
+        const newDate = new Date(prevDate);
+        newDate.setDate(prevDate.getDate() - 1);
+        return newDate;
+      });
       setTransition(false);
     }, 300);
   };
 
   const handleNextDay = () => {
-    const newDate = new Date(selectedDate);
-    newDate.setDate(selectedDate.getDate() + 1);
     setTransition(true);
     setTimeout(() => {
-      setSelectedDate(newDate);
+      setSelectedDate((prevDate) => {
+        const newDate = new Date(prevDate);
+        newDate.setDate(prevDate.getDate() + 1);
+        return newDate;
+      });
       setTransition(false);
     }, 300);
   };
@@ -54,6 +58,5 @@ const getPreviewDate = (date, offset) => {
 
   return formattedDate;
 };
-
 
 export default DateSelector;

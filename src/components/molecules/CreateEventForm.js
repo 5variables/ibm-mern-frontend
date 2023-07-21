@@ -8,7 +8,6 @@ import '../atoms/atoms-style.css';
 
 // import mapboxgl from 'mapbox-gl';
 import mapboxgl from '!mapbox-gl'; // eslint-disable-line import/no-webpack-loader-syntax
-import Autosuggest from 'react-autosuggest';
 import 'mapbox-gl/dist/mapbox-gl.css';
 
 
@@ -107,7 +106,7 @@ const CreateEventForm = () => {
                 })
                 );
                 setUsers(userData);
-                console.log(userData);
+                // console.log(userData);
             } catch (error) {
               console.error(error);
             }
@@ -166,12 +165,13 @@ const CreateEventForm = () => {
           `https://geocode.maps.co/search?q=${value}`
         );
         const suggestions = response.data.map((item) => [item.display_name, item.lat, item.lon]);
+        // console.log(suggestions);
         // const coords = response.data.map((item) => [item.lat, item.lon]);
         // console.log(coords);
         let name = response.data[0].display_name.split(",")[0];
 
-        const lat = response.data[0].lat;
-        const lon = response.data[0].lon;
+        // const lat = response.data[0].lat;
+        // const lon = response.data[0].lon;
         
 
         setLocationName(name);
@@ -198,6 +198,9 @@ const CreateEventForm = () => {
       markerElement.style.justifyContent = 'center';
       markerElement.style.alignItems = 'center';
       markerElement.innerText = suggestion[0].split(",")[0];
+
+      setLat(suggestion[2]);
+      setLon(suggestion[1]);
 
       const marker = new mapboxgl.Marker({ element: markerElement }).setLngLat([parseFloat(suggestion[2]), parseFloat(suggestion[1])]).addTo(map.current);
       
@@ -241,7 +244,7 @@ const CreateEventForm = () => {
                 <div className="groups-selector">
                     <div className="gr-selector" onClick={() => {setFilterGroup("all"); setSelectedGroup("all")}} style={{ backgroundColor: selectedGroup.includes("all") ? 'rgb(0, 0, 0)' : 'rgb(233, 228, 228)', color: selectedGroup.includes("all") ? 'white' : 'black' }} >All</div>
                     {groups && groups.map((group) => (
-                      <div className="gr-selector" onClick={() => {setFilterGroup(group[0]); setSelectedGroup(group[0])}} style={{ backgroundColor: selectedGroup.includes(group[0]) ? 'rgb(0, 0, 0)' : 'rgb(233, 228, 228)', color: selectedGroup.includes(group[0]) ? 'white' : 'black' }}>{group[0]}</div>
+                      <div key={group[0]} className="gr-selector" onClick={() => {setFilterGroup(group[0]); setSelectedGroup(group[0])}} style={{ backgroundColor: selectedGroup.includes(group[0]) ? 'rgb(0, 0, 0)' : 'rgb(233, 228, 228)', color: selectedGroup.includes(group[0]) ? 'white' : 'black' }}>{group[0]}</div>
                     ))}
                 </div>
                 <div className="users">
