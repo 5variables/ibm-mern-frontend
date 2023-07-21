@@ -105,9 +105,9 @@ const CreateEventForm = () => {
                     groups: groupNames
                   };
                 })
-              );
-              console.log(userData);
-              setUsers(userData);
+                );
+                setUsers(userData);
+                console.log(userData);
             } catch (error) {
               console.error(error);
             }

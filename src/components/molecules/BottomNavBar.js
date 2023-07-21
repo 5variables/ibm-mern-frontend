@@ -165,7 +165,7 @@ const BottomNavBar = ({_groups, _mail, _firstName, _isAdmin, _setIsModal, _setMo
                         <div className='popup-option' onClick={() => { _setIsModal(true); _setModalType("create-event") }}>Create event</div>
                     )}
                     <div className='popup-option' onClick={() => { _setIsModal(true); _setModalType("create-group") }}>Create group</div>
-                    <div className='popup-option' onClick={logout}>Log Out</div>
+                    <div className='popup-option logout' onClick={logout}>Log Out</div>
                 </div>
             ) :
             isPop && popContent === "notifications" ? (
