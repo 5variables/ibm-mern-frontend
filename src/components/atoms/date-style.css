@@ -1,14 +1,25 @@
+
 .date-rectangle.active {
     background-color: #f0f0f0;
 }
 
-.container {
+/* .container {
+    display: grid;
+    grid-template-columns: auto 600px;
+    grid-template-rows: auto;
+    grid-column-gap: 160px;
+    margin: 0 auto;
+  }
+  
+
+  .event-list {
+    grid-column: 1 / 2;
     display: flex;
     justify-content: center;
-    align-items: center;
-}
+    margin: 0 auto;
+  } */
 
-.date-preview {
+  .date-preview {
     position: relative;
     width: 642px;
     height: 69px;
@@ -22,7 +33,7 @@
     justify-content: space-between;
     align-items: center;
     gap: 10px;
-}
+  }
 
 .leftButton,
 .rightButton {

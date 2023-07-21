@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import DateDisplay from '../atoms/DateDisplay';
 import '../atoms/date-style.css'
+import EventList from '../molecules/EventList';
 
 const DateSelector = () => {
   const [selectedDate, setSelectedDate] = useState(new Date());
@@ -29,7 +30,7 @@ const DateSelector = () => {
   return (
     <div className='container'>
       <div className="date-preview">
-      <button onClick={handlePreviousDay} className='leftButton'>&lt;--</button>
+        <button onClick={handlePreviousDay} className='leftButton'>&lt;--</button>
         <p>{getPreviewDate(selectedDate, -2)}</p>
         <p>{getPreviewDate(selectedDate, -1)}</p>
         <DateDisplay date={selectedDate} isActive={!transition} />
@@ -37,6 +38,7 @@ const DateSelector = () => {
         <p>{getPreviewDate(selectedDate, 2)}</p>
         <button onClick={handleNextDay} className='rightButton'>--&gt;</button>
       </div>
+      <EventList selectedDate={selectedDate} />
     </div>
   );
 };
@@ -44,12 +46,12 @@ const DateSelector = () => {
 const getPreviewDate = (date, offset) => {
   const newDate = new Date(date);
   newDate.setDate(date.getDate() + offset);
-  
+
   const formattedDate = newDate.toLocaleString('en-US', {
     month: 'long',
     day: 'numeric',
   });
-  
+
   return formattedDate;
 };
 
