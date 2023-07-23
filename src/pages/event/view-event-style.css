@@ -1,0 +1,138 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+html, body {
+    width: 100vw;
+    height: 100vh;
+    padding: 0px;
+    margin: 0px;
+
+    font-family: 'Inter';
+}
+.main-view {
+    width: 100vw;
+    height: 100vh;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.view-event {
+    background-color: white;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+
+    padding: 10px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    border-radius: 16px;
+    box-shadow: 0px 4px 16px 0px rgba(0, 0, 0, 0.10);
+}
+
+.title {
+    font-size: larger;
+    font-weight: 700;
+}
+
+.description {
+    font: medium;
+    font: 600;
+}
+
+.top {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 6px;
+}
+
+.map-container {
+
+    height: 400px;
+    width: 100%;
+    /* background-color: rgba(0, 0, 0, 0.519); */
+}
+
+.map {
+    border-radius: 20px;
+
+    margin-top: 20px;
+    margin-bottom: 20px;
+
+    position: absolute;
+    top: 0; bottom: 0;
+    left: 0; right: 0;
+
+    height: 100%;
+    width: 100vw;    
+}
+
+.buttons {
+    margin: 30px;
+    height: 30px;
+    width: fit-content;
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.btn {
+    background-color: black;
+    color: white;
+    padding: 20px;
+    border-radius: 16px;
+
+    font-size: medium;
+    cursor: pointer;
+
+    transition: .3s all;
+}
+
+.btn:hover {
+    background-color: rgb(70, 206, 70);
+    color: white;
+}
+
+.user-invitations {
+    height: 350;
+    width: fit-content;
+    overflow-y: auto;
+
+    margin-top: 10px;
+
+    flex-grow: 1;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    flex-direction: row;
+    align-content: flex-start;
+    gap: 10px;
+}
+
+.participant {
+    font-weight: 500;
+    border-radius: 20px;
+    background-color: rgb(233, 228, 228);
+
+    width: fit-content;
+    height: fit-content;
+    padding-left: 20px;
+    padding-right: 20px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-self: center;
+}
+
+
+
