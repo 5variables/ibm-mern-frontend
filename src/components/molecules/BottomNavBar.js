@@ -18,7 +18,7 @@ const BottomNavBar = ({_groups, _mail, _firstName, _isAdmin, _setIsModal, _setMo
     const [notifications, setNotifications] = useState([]);
 
 
-    const [groupName, setGroupName] = useState([]);
+    const [groupName, setGroupName] = useState();
 
     const handleButtonPopup = (event) => {
         if (event !== "" && event !== "notifications" && event !== "user") {
@@ -109,6 +109,17 @@ const BottomNavBar = ({_groups, _mail, _firstName, _isAdmin, _setIsModal, _setMo
         location.reload();
     }
 
+    const getGroupName = async (groupId) => {
+        try {
+            const res = await axios.get('http://localhost:3001/groups/get-group-name-from-groupid/'+groupId);
+            // console.log(res.data.name);
+            return res.data.name
+            // setGroupName(res.data.name);
+        } catch(err) {
+            console.error(err);
+        }
+    }
+
 
     const getNotifications = async () => {
         try {
@@ -119,7 +130,20 @@ const BottomNavBar = ({_groups, _mail, _firstName, _isAdmin, _setIsModal, _setMo
             //     userMail: user.mail
             // }));
             // setUsers(userData);
-            setNotifications(res.data);
+            const notifications = await Promise.all(
+                res.data.map(async (notification) => {
+                    // console.log(notification);
+                    const groupId = notification; // Assuming the groupId is available in the notification object, adjust this accordingly to your data structure.
+                    const groupResponse = await axios.get(`http://localhost:3001/groups/get-group-name-from-groupid/${groupId}`);
+                    const notificationWithGroup = {
+                        id: groupId,
+                        groupName: groupResponse.data.name // Assuming the group name is available in the groupResponse data, adjust this accordingly to your data structure.
+                    };
+                    return notificationWithGroup;
+                })
+            );
+
+            setNotifications(notifications);
             console.log(notifications);
         } catch (error) {
             console.error(error);
@@ -173,7 +197,7 @@ const BottomNavBar = ({_groups, _mail, _firstName, _isAdmin, _setIsModal, _setMo
                     <div className='popup-title'>Notifications</div>
                     <div className='notifications'>
                         {notifications.map((not) => (
-                            <div key={not} className='popup-option' onClick={() => confirmInvitation(not)}>{not}</div>
+                            <div key={not.groupName} className='popup-option' onClick={() => confirmInvitation(not.id)}>Group invitation to {not.groupName}!</div>
                         ))}
                     </div>
                 </div>

@@ -4,9 +4,11 @@ import Event from '../atoms/Event';
 import '../atoms/event-style.css';
 import mapboxgl from '!mapbox-gl'; // eslint-disable-line import/no-webpack-loader-syntax
 import 'mapbox-gl/dist/mapbox-gl.css';
+import { useRouter } from 'next/router';
 
 
 const EventList = ({ selectedDate }) => {
+  const router = useRouter;
   const [currentDate, setCurrentDate] = useState();
 
   const mapContainer = useRef(null);
@@ -141,7 +143,10 @@ const EventList = ({ selectedDate }) => {
                 </div>
               </div>
               <div className="bottom">
-                <div className='view-btn'>View {sign}</div>
+                <div className='view-btn' onClick={() => {
+                  window.location.href = '/event/'+event._id;
+                  // router.push('/event/'+event._id);
+                }}>View {sign}</div>
               </div>
             </div>
           ))}
