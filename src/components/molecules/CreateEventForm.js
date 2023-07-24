@@ -119,7 +119,7 @@ const CreateEventForm = () => {
                 // console.log(String(groupId));
                 const groupRes = await axios.get('http://localhost:3001/groups/get-group-name-from-groupid/'+groupId);
                 // console.log(groupRes);
-                return groupRes.data;
+                return groupRes.data.name;
               } catch (error) {
                 console.error(`Error fetching group name for groupId: ${groupId}`, error);
                 return null; // Handle errors as needed

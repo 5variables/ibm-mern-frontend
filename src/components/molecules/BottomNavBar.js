@@ -144,7 +144,7 @@ const BottomNavBar = ({_groups, _mail, _firstName, _isAdmin, _setIsModal, _setMo
             );
 
             setNotifications(notifications);
-            console.log(notifications);
+            // console.log(notifications);
         } catch (error) {
             console.error(error);
         }
