@@ -20,7 +20,9 @@
 
 .right {
     flex: 2;
-    background-color: #ddd; /* Optional: Apply a background color to the right section */
+    background-image: url("http://localhost:3000/a.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
 }
 
 
