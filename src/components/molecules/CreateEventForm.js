@@ -38,6 +38,7 @@ const CreateEventForm = () => {
     const [users, setUsers] = useState([]);
     const [userName, setUserName] = useState([]);
     const [invitations, setInvitations] = useState([]);
+    const [eventFormError, setEventFormError] = useState('');
 
     const eventInfo = {
       location: {
@@ -49,7 +50,7 @@ const CreateEventForm = () => {
 
     const handleFormSubmit = async (e) => {
         e.preventDefault();
-        
+        setEventFormError('');
         // check if all fields are completed
         if (eventName && description && eventInfo && date && time && invitations) {
             // console.log(eventName, description, date, time, eventInfo.location, invitations);
@@ -66,10 +67,11 @@ const CreateEventForm = () => {
                 location.reload();
             } catch (error) {
                 console.error(error);
+                
             }
 
         } else {
-            console.log('Please fill in all fields.');
+          setEventFormError('Please fill in all fields.');
         }
     };
 
@@ -267,6 +269,8 @@ const CreateEventForm = () => {
                 <div className="bottom-fields">
                     <LargeButton _label="Create event -->" _type="submit"/>
                 </div>
+                {eventFormError && <div className="error-message">{eventFormError} <img src="http://localhost:3000/b.jpg"/> </div>}
+                
             </form>
         </div>
     );

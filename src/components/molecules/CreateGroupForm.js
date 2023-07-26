@@ -17,9 +17,11 @@ const CreateGroupForm = () => {
     const [groupName, setGroupName] = useState('');
     const [invitations, setInvitations] = useState([]);
     const [users, setUsers] = useState([]);
+    const [eventFormError, setEventFormError] = useState('');
 
     const handleFormSubmit = async (e) => {
         e.preventDefault();
+        setEventFormError('');
 
         if(groupName && invitations) {
             // console.log(groupName, invitations);
@@ -35,7 +37,7 @@ const CreateGroupForm = () => {
             }
 
         }else{
-            console.log('Please fill in all fields');
+          setEventFormError('Please fill in all fields.');
         }
     };
 
@@ -115,6 +117,7 @@ const CreateGroupForm = () => {
               <div className="bottom-fields">
                   <LargeButton _label="Create group -->" _type="submit"/>
               </div>
+              {eventFormError && <div className="error-message">{eventFormError} <img src="http://localhost:3000/b.jpg"/> </div>}
               </form>
         </div>
         
