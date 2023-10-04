@@ -186,7 +186,10 @@ const BottomNavBar = ({_groups, _mail, _firstName, _isAdmin, _setIsModal, _setMo
             {isPop && popContent === "user" ? (
                 <div className="popup" ref={popupRef}>
                     {_isAdmin && (
-                        <div className='popup-option' onClick={() => { _setIsModal(true); _setModalType("create-event") }}>Create event</div>
+                        <div style={{width:'100%'}}>
+                            <div className='popup-option' onClick={() => { _setIsModal(true); _setModalType("create-event") }}>Create event</div>
+                            <div className='popup-option' onClick={() => { router.push('edit-users'); }}>Edit users</div>
+                        </div>
                     )}
                     <div className='popup-option' onClick={() => { _setIsModal(true); _setModalType("create-group") }}>Create group</div>
                     <div className='popup-option logout' onClick={logout}>Log Out</div>
